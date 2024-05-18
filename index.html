@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #btn {
+        border: none;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        animation: color 1s infinite alternate;
+      }
+      @keyframes color {
+        0% {
+          background-color: red;
+        }
+        50% {
+          background-color: rgb(34, 203, 0);
+        }
+        100% {
+          background-color: rgb(0, 17, 255);
+        }
+      }
+      #container {
+        position: relative;
+        background-color: rgb(255, 255, 255);
+        height: max-content;
+        padding: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      #time {
+        font-size: 20px;
+        font-weight: 600;
+        width: 200px;
+        margin: 0 auto;
+        padding: 20px 30px;
+        border-radius: 10px;
+        text-align: center;
+        background-color: rgb(245, 245, 245);
+        border: 10px solid rgb(255, 191, 0);
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+      }
+      #rank {
+        border-radius: 10px;
+        background-color: rgb(15, 134, 177);
+        width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border: 1px solid;
+        margin-top: 100px;
+      }
+      .rank-item {
+        position: relative;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: aliceblue;
+        border: 1px solid;
+      }
+      .run {
+        position: absolute;
+        background-color: red;
+        height: 60%;
+        width: 0;
+        top: 50%;
+        bottom: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        transition: 3600s linear;
+        background: linear-gradient(
+          to right,
+          rgb(255, 0, 0),
+          rgb(255, 115, 0),
+          rgb(255, 225, 0)
+        );
+      }
+      #second {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 50px;
+        border: 3px solid white;
+        border-radius: 5px;
+        z-index: 10;
+        background-color: rgb(118, 0, 154);
+        color: white;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #complete {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(172, 236, 255);
+        animation: change 1s infinite alternate;
+        z-index: 5;
+        left: 0;
+        top: 0;
+        justify-content: center;
+        padding-top: 300px;
+        font-size: 43px;
+        font-weight: bolder;
+        text-align: center;
+        color: white;
+        display: flex;
+        display: none;
+      }
+      @keyframes change {
+        0% {
+          color: red;
+        }
+        50% {
+          color: rgb(34, 203, 0);
+        }
+        100% {
+          color: rgb(0, 17, 255);
+        }
+      }
+    </style>
+  </head>
+  <body onload="show_time()">
+    <div id="container">
+      <div id="complete">MISSION COMPLETE!!!
+      </div>
+      <button id="btn" onclick="run_time()"></button>
+      <div id="time"></div>
+      <div id="second"></div>
+      <div id="rank">
+        <div class="rank-item" id="one">
+          <div class="run" id="run1"></div>
+        </div>
+        <div class="rank-item" id="two"><div class="run" id="run2"></div></div>
+        <div class="rank-item" id="three">
+          <div class="run" id="run3"></div>
+        </div>
+        <div class="rank-item" id="four"><div class="run" id="run4"></div></div>
+        <div class="rank-item" id="five"><div class="run" id="run5"></div></div>
+        <div class="rank-item" id="six"><div class="run" id="run6"></div></div>
+        <div class="rank-item" id="seven">
+          <div class="run" id="run7"></div>
+        </div>
+        <div class="rank-item" id="eight">
+          <div class="run" id="run8"></div>
+        </div>
+        <div class="rank-item" id="nine"><div class="run" id="run9"></div></div>
+        <div class="rank-item" id="ten"><div class="run" id="run10"></div></div>
+      </div>
+    </div>
+
+    <script>
+      var run1 = document.getElementById("run1");
+      var run = document.querySelectorAll(".run");
+      var i = 0;
+      var a = 0;
+      var check = true;
+      var btn = document.getElementById("btn");
+      function run_number() {
+        second.innerHTML = a;
+        a++;
+        if (a <= 36000) {
+          setTimeout(run_number, 1000);
+        } else {
+          complete.style.display = "flex";
+        }
+      }
+      function run_time() {
+        run[i].style.width = "100%";
+        i++;
+        setTimeout(run_time, 3600000);
+      }
+
+      function show_time() {
+        var container = document.getElementById("container");
+        var clock = new Date();
+        var time = document.getElementById("time");
+        var h = clock.getHours();
+        var m = clock.getMinutes();
+        var mreal = m < 10 ? "0" + m : m;
+        var s = clock.getSeconds();
+        var sreal = s < 10 ? "0" + s : s;
+        time.innerHTML = `${h}:${mreal}:${sreal}`;
+        if (h >= 6 && h <= 11) {
+          container.style.backgroundColor = "rgb(124, 218, 255)";
+          rank.style.backgroundColor = "green";
+        } else if (h > 11 && h <= 17) {
+          container.style.backgroundColor = " rgb(255, 221, 174)";
+          rank.style.backgroundColor = "rgb(13, 135, 211)";
+        } else if (h > 17 && h <= 19) {
+          container.style.backgroundColor = "rgb(36, 65, 154)";
+          rank.style.backgroundColor = "grey";
+        } else if (h > 19 || h < 6) {
+          if (h == 0 && s == 0) {
+            location.reload();
+          }
+          container.style.backgroundColor = " rgb(2, 11, 39)";
+          rank.style.backgroundColor = "aqua";
+        }
+
+        setTimeout(show_time, 1000);
+      }
+      btn.addEventListener("click", function () {
+        btn.style.display = "none";
+        run_number();
+      });
+    </script>
+  </body>
+</html>
